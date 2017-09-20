@@ -4,6 +4,7 @@ import Router from "vue-router"
 import Dashboard from "@/router/Dashboard"
 import PriceComparison from "@/router/PriceComparison"
 import Query from "@/router/Query"
+import QueryPage from "@/router/Query/query"
 import Products from "@/router/Products"
 
 Vue.use(Router)
@@ -29,6 +30,10 @@ const router = new Router({
 			path: "/query",
 			name: "query",
 			component: Query
+		}, {
+			path: "/query/:queryId",
+			name: "queryPage",
+			component: QueryPage
 		}, {
 			path: "/products",
 			name: "products",

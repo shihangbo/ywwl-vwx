@@ -1,0 +1,93 @@
+{
+  "code": 0,
+  "days": 10,
+  "destin_country": "美国",
+  "destin_items": [
+      {
+          "location": "CHINASHANGHAI EMS",
+          "message": "Processed Through Facility",
+          "timestamp": "2017-09-06T11:59:00"
+      },
+      {
+          "location": "",
+          "message": "Origin Post is Preparing Shipment, We have received notice that the originating post is preparing to dispatch this mail piece.",
+          "timestamp": "2017-09-06T11:59:00"
+      },
+      {
+          "location": "CHINA",
+          "message": "Acceptance",
+          "timestamp": "2017-09-05T19:41:00"
+      }
+  ],
+  "exchange_number": "LW788662544CN",
+  "last_item": {
+      "location": "上海市",
+      "message": "退回 妥投",
+      "timestamp": "2017-09-11T18:44:00"
+  },
+  "message": "success",
+  "order_number": "hv00001382538zc18-",
+  "origin_country": "中国",
+  "origin_items": [
+      {
+          "location": "上海市",
+          "message": "退回 妥投",
+          "timestamp": "2017-09-11T18:44:00"
+      },
+      {
+          "location": "上海市",
+          "message": "速递大宗收寄处 安排投递，预计23:59:00前投递（投递员姓名：钱晓俊;联系电话：18301907120）",
+          "timestamp": "2017-09-11T18:05:00"
+      },
+      {
+          "location": "上海市",
+          "message": "海关放行",
+          "timestamp": "2017-09-10T12:37:00"
+      },
+      {
+          "location": "上海市",
+          "message": "送交海关",
+          "timestamp": "2017-09-09T14:25:00"
+      },
+      {
+          "location": "上海市",
+          "message": "离开上海市 发往纽约肯尼迪机场",
+          "timestamp": "2017-09-06T22:54:00"
+      },
+      {
+          "location": "上海市",
+          "message": "离开上海市 发往上海浦东航站",
+          "timestamp": "2017-09-06T22:54:00"
+      },
+      {
+          "location": "上海市",
+          "message": "速递大宗收寄处已收件（揽投员姓名：01,联系电话:）",
+          "timestamp": "2017-09-05T19:41:00"
+      },
+      {
+          "location": "",
+          "message": "离开燕文处理中心。",
+          "timestamp": "2017-09-05T09:02:07.047"
+      },
+      {
+          "location": "",
+          "message": "燕文处理中心处理完成。",
+          "timestamp": "2017-09-05T04:47:47.047"
+      },
+      {
+          "location": "",
+          "message": "燕文已接收货物。",
+          "timestamp": "2017-09-04T17:29:06"
+      },
+      {
+          "location": "",
+          "message": "商家已提交物流数据。",
+          "timestamp": "2017-09-02T23:58:56.92"
+      }
+  ],
+  "receive_date": "2017-09-04T17:29:06",
+  "send_date": "2017-09-05T09:02:07.047",
+  "state": 50,
+  "waybill_number": "LW788662544CN",
+  "yanwen_number": "AA127794032YR"
+}

@@ -1,17 +1,93 @@
 <template>
 	<div class="price-comparison">
-		<div class="page">
-			<Group>
+		<div class="page" style="padding-bottom: 55px;">
+			<Group title="价格比较" class="text-left">
 				<cell v-if="!getCityData.city.id" title="发出地" is-link class="text-left" @click.native="handleShowStartAddress"></cell>
 				<cell v-if="getCityData.city.id" title="发出地" is-link class="text-left" @click.native="handleShowStartAddress" :value="`${getCityData.area.name}-${getCityData.city.name}`"></cell>
 				<cell title="目的地" is-link class="text-left" value="美国"></cell>
 				<x-input class="text-left" text-align="right" title="重量(kg)" placeholder="输入重量" novalidate :show-clear="false" placeholder-align="right"></x-input>
 			</Group>
-			<p class="mt30" style="padding:0 10%;">
-				<x-button plain type="warn">查询</x-button>
-				<x-button plain>查询</x-button>
+			<p class="mt30 mb30" style="padding:0 10%;">
+				<x-button v-if="isShowPriceButton" plain type="warn" @click.native="handleQueryPrice">查询</x-button>
+				<x-button v-if="!isShowPriceButton" plain>查询</x-button>
 			</p>
+			<!--价格显示-->
+			<div v-if="isShowPriceList">
+				<x-table class="bg-white">
+					<thead class="bg-lightgrey">
+						<tr>
+							<th>Product</th>
+							<th>Price</th>
+							<th>Quantity</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+						<tr>
+							<td>Apple</td>
+							<td>$1.25</td>
+							<td> x 1</td>
+						</tr>
+					</tbody>
+				</x-table>
+				<load-more style="margin-top: 20px;margin-bottom: 0px;" tip="我也是有底线的哦～" :show-loading="false" background-color="#fbf9fe"></load-more>
+			</div>
 		</div>
+		<!--出发地选择-->
 		<Popup v-model="isShowStartAddress" height="100%" :hide-on-blur="false">
 			<div class="popup1">
 				<tab>
@@ -34,17 +110,30 @@
 </template>
 
 <script>
-import { Group, Cell, XInput, XButton, Popup, Tab, TabItem } from "vux"
+import { Group, Cell, XInput, XButton, Popup, Tab, TabItem, XTable, LoadMore } from "vux"
+import priceComparison from "../../servers/priceComparison"
+
 export default {
 	data () {
 		return {
 			name: "priceComparison",
 			isShowStartAddress: false,
 			city: [{name: "北京", id: 1, areaCode: "1001"}, {name: "济南", id: 2, areaCode: "1001"}],
-			getCityData: {area: {areaCode: "1001", name: "华北"}, city: {}}  // 默认华北1001，华南1003，华东1002，香港1004，西南1006
+			getCityData: {area: {areaCode: "1001", name: "华北"}, city: {}},  // 默认华北1001，华南1003，华东1002，香港1004，西南1006
+			isShowPriceList: false,
+			isShowPriceButton: false
 		}
 	},
+	created () {
+		this.load()
+	},
 	methods: {
+		async load () {
+			// const vm = this
+			const params = {"country": {"regionId": "N"}, "city": {"name": "N"}}
+			const response = await priceComparison.getChargePriceExt(params)
+			console.log(response)
+		},
 		handleShowStartAddress () {
 			this.isShowStartAddress = !this.isShowStartAddress
 		},
@@ -78,6 +167,16 @@ export default {
 		handleAreaCode () {
 			console.log(this.getCityData)
 			this.isShowStartAddress = false
+			this.isShowPriceButton = true
+		},
+		// 价格查询
+		handleQueryPrice () {
+			const vm = this
+			vm.$vux.loading.show({text: "加载中..."})
+			setTimeout(() => {
+				vm.isShowPriceList = true
+				vm.$vux.loading.hide()
+			}, 2000)
 		},
 		getTabItemClass (itemAreaCode) {
 			if (this.getCityData.city.areaCode === itemAreaCode) return true
@@ -91,7 +190,9 @@ export default {
 		XButton,
 		Popup,
 		Tab,
-		TabItem
+		TabItem,
+		XTable,
+		LoadMore
 	}
 }
 </script>

@@ -4,7 +4,7 @@ import FastClick from "fastclick"
 import VueLazyload from "vue-lazyload"
 import App from "./App"
 import router from "./router"
-import { ToastPlugin } from "vux"
+import { ToastPlugin, LoadingPlugin } from "vux"
 
 // public css
 import "css-kit"
@@ -12,6 +12,7 @@ import "css-kit"
 Vue.config.productionTip = false
 
 Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin)
 
 import defaultPng from "./assets/default.png"
 Vue.use(VueLazyload, {
