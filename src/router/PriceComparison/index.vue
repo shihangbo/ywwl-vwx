@@ -91,14 +91,10 @@
 		<Popup v-model="isShowStartAddress" height="100%" :hide-on-blur="false">
 			<div class="popup1">
 				<tab>
-					<tab-item @on-item-click="onItemClick" :class="{'tab-item': getTabItemClass('1001')}" class="relative" selected>华北</tab-item>
-					<tab-item @on-item-click="onItemClick" :class="{'tab-item': getTabItemClass('1003')}" class="relative">华南</tab-item>
-					<tab-item @on-item-click="onItemClick" :class="{'tab-item': getTabItemClass('1002')}" class="relative">华东</tab-item>
-					<tab-item @on-item-click="onItemClick" :class="{'tab-item': getTabItemClass('1004')}" class="relative">香港</tab-item>
-					<tab-item @on-item-click="onItemClick" :class="{'tab-item': getTabItemClass('1006')}" class="relative">西南</tab-item>
+					<tab-item v-for="(item, index) in area" :keys="index" @on-item-click="onItemClick" :class="{'tab-item': getTabItemClass(item.areaCode)}" class="relative" :selected="item.areaCode === getCityData.area.areaCode">{{item.area}}</tab-item>
 				</tab>
 				<ul class="p10 bg-white text-left">
-					<li v-for="item in city" class="inline city-item" :class="{city: item.id === getCityData.city.id}" @click="handleChooseCity(item)">{{item.name}}</li>
+					<li v-for="(item, index) in city" :keys="index" class="inline city-item" :class="{city: item.id === getCityData.city.id}" @click="handleChooseCity(item)">{{item.name}}</li>
 				</ul>
 				<p class="mt30" style="padding:0 10%;">
 					<x-button v-if="getCityData.city.id" type="primary" @click.native="handleAreaCode">确定</x-button>
@@ -118,10 +114,12 @@ export default {
 		return {
 			name: "priceComparison",
 			isShowStartAddress: false,
-			city: [{name: "北京", id: 1, areaCode: "1001"}, {name: "济南", id: 2, areaCode: "1001"}],
-			getCityData: {area: {areaCode: "1001", name: "华北"}, city: {}},  // 默认华北1001，华南1003，华东1002，香港1004，西南1006
 			isShowPriceList: false,
-			isShowPriceButton: false
+			isShowPriceButton: false,
+			getCityData: {area: {}, city: "", wight: "", destin: {}},  // 获取-默认华北1001，华南1003，华东1002，香港1004，西南1006
+			area: [], // 转化数据-保存区域
+			areaCity: {}, // 转化数据-保存区域城市 {1001: [], 1002: []}
+			city: [], // 获取-对应城市
 		}
 	},
 	created () {
@@ -129,10 +127,36 @@ export default {
 	},
 	methods: {
 		async load () {
-			// const vm = this
+			const vm = this
 			const params = {"country": {"regionId": "N"}, "city": {"name": "N"}}
-			const response = await priceComparison.getChargePriceExt(params)
-			console.log(response)
+			vm.$vux.loading.show({text: "加载中..."})
+			const {data, status, statusText} = await priceComparison.getChargePriceExt(params)
+			if (status === 200) {
+				console.log(data)
+				vm.getAreaCity(data.lineCity.lineCityList) // 获取 areaCity
+				vm.city = vm.areaCity["1001"] // 初始化城市
+				vm.getCityData.area = vm.area[0] // 初始化
+			} else {
+				vm.$vux.toast.text(statusText, "top")
+			}
+			vm.$vux.loading.hide()
+		},
+		getAreaCity (lineCityList) {
+			let hashTable = {}
+			lineCityList.forEach((item) => {
+				var key = (typeof item) + item.areaCode
+				if (!hashTable[key]) {
+					hashTable[key] = true
+					this.area.push(item)
+				}
+			})
+
+			lineCityList.forEach((item) => {
+				if (!this.areaCity[item.areaCode]) {
+					this.areaCity[item.areaCode] = []
+				}
+				this.areaCity[item.areaCode].push(item)
+			})
 		},
 		handleShowStartAddress () {
 			this.isShowStartAddress = !this.isShowStartAddress
@@ -140,23 +164,23 @@ export default {
 		onItemClick (index) {
 			switch (index) {
 				case 0:
-					this.city = [{name: "北京", id: 1, areaCode: "1001"}, {name: "济南", id: 2, areaCode: "1001"}]
+					this.city = this.areaCity["1001"]
 					this.getCityData.area = {areaCode: "1001", name: "华北"}
 					break
 				case 1:
-					this.city = [{name: "深圳", id: 3, areaCode: "1003"}, {name: "广州", id: 4, areaCode: "1003"}]
-					this.getCityData.area = {areaCode: "1003", name: "华南"}
-					break
-				case 2:
-					this.city = [{name: "上海", id: 5, areaCode: "1002"}, {name: "杭州", id: 6, areaCode: "1002"}]
+					this.city = this.areaCity["1002"]
 					this.getCityData.area = {areaCode: "1002", name: "华东"}
 					break
+				case 2:
+					this.city = this.areaCity["1003"]
+					this.getCityData.area = {areaCode: "1003", name: "华南"}
+					break
 				case 3:
-					this.city = [{name: "香港", id: 11, areaCode: "1004"}]
+					this.city = this.areaCity["1004"]
 					this.getCityData.area = {areaCode: "1004", name: "香港"}
 					break
 				case 4:
-					this.city = [{name: "成都", id: 7, areaCode: "1006"}, {name: "重庆", id: 8, areaCode: "1006"}]
+					this.city = this.areaCity["1006"]
 					this.getCityData.area = {areaCode: "1006", name: "西南"}
 					break
 			}
