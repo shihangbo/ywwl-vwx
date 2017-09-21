@@ -3,7 +3,7 @@
 		<div class="bg-white p10">
 			<div class="p10 mt10 tracking-box">
 				<p class="tracking-title text-center">运单号查询</p>
-				<p class="tracking"><input v-model="number"></input></p>
+				<p class="tracking"><input v-model="number" placeholder="请输入物流单号"></input></p>
 				<p class="mt20 mb30">
 					<x-button type="primary" @click.native="query">查询</x-button>
 				</p>
@@ -20,11 +20,12 @@ export default {
 		return {
 			name: "query",
 			step: 0,
-			number: 123242323, // 快递单号
+			number: "", // 快递单号
 		}
 	},
 	methods: {
 		query () {
+			if (!this.number) return this.$vux.toast.text("请输入物流单号", "top")
 			this.$router.push(`/query/${this.number}`)
 		}
 	},
@@ -41,12 +42,16 @@ export default {
 
 <style scoped lang="stylus">
 .tracking-box
-	background-color #ddd
 	border-radius 10px
+	background #ddd url(../../assets/default.png) no-repeat
+	background-size 100%
+	box-shadow 0 0 5px #000
 	.tracking-title
-		margin 8px 0
+		margin 8px 0 12px 0
 		color #000
 		position relative
+		font-size 20px
+		font-weight 500
 	// .tracking-title:before
 	// 	content "************************************"
 	// 	display inline-block
@@ -65,6 +70,6 @@ export default {
 			padding 0 10px
 			font-size 18px
 			color #000
-			border-radius 3px
+			border-radius 5px
 			outline none
 </style>
