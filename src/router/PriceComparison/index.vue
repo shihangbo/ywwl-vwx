@@ -64,7 +64,15 @@
 		<Popup v-model="isShowStartAddress" height="100%" :hide-on-blur="false">
 			<div class="popup1">
 				<tab>
-					<tab-item v-for="(item, index) in area" :keys="index" @on-item-click="onItemClick" :class="{'tab-item': getTabItemClass(item.areaCode)}" class="relative" :selected="item.areaCode === getCityData.area.areaCode">{{item.area}}</tab-item>
+					<tab-item
+						v-for="(item, index) in area"
+						:keys="index"
+						@on-item-click="onItemClick"
+						:class="{'tab-item': getTabItemClass(item.areaCode)}"
+						class="relative" :selected="item.areaCode === getCityData.area.areaCode"
+						>
+						{{item.area}}
+					</tab-item>
 				</tab>
 				<ul class="p10 bg-white text-left">
 					<li v-for="(item, index) in city" :keys="index" class="inline city-item" :class="{city: item.id === getCityData.city.id}" @click="handleChooseCity(item)">{{item.name}}</li>

@@ -32,6 +32,11 @@ module.exports = {
         target: 'http://www.wise-mate.com',
         logLevel: 'debug',
         changeOrigin: true
+      },
+      '/article/*': {
+        target: 'http://www.wise-mate.com',
+        logLevel: 'debug',
+        changeOrigin: true
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
