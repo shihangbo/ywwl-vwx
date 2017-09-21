@@ -15,16 +15,17 @@
 		<div class="page" style="padding-top:44px;padding-bottom:80px;">
 			<group title="" class="text-left" gutter="0">
 				<div class="p10 c0 fs12">
-					<h3>产品介绍：</h3>
+					<!--<h3>产品介绍：</h3>-->
 					<p class="p10">
-						产品介绍产品介绍产品介绍产品介绍产品介绍产品介绍产品介绍产品介绍
-						产品介绍产品介绍产品介绍产品介绍产品介绍产品介绍产品介绍产品介绍
+						<img :src="imgSrc" alt="pic" style="max-width: 100%;border-radius: 10px;">
 					</p>
 				</div>
 			</group>
 			<!--产品列表-->
-			<group gutter="-1px" class="text-left">
-				<cell v-for="item in products" :keys="item.id" is-link :title="item.title" @click.native="handleProductDetial(item)"></cell>
+			<group gutter="-1px" class="text-left" v-if="(products || []).length">
+				<cell v-for="item in products" :keys="item.id" is-link :title="item.title" @click.native="handleProductDetial(item)">
+					<img slot="icon" width="20" style="display:block;margin-right:5px;" :src="imgIcon">
+				</cell>
 			</group>
 		</div>
 		<!--产品详情-->
@@ -45,6 +46,14 @@
 <script>
 import { Group, Tab, TabItem, Cell, Popup, Icon, XButton } from "vux"
 import products from "../../servers/products"
+import i1 from "../../assets/fw-3.png"
+import i2 from "../../assets/fw-4.jpg"
+import i3 from "../../assets/fw-7.jpg"
+import i4 from "../../assets/fw-8.jpg"
+import ic1 from "../../assets/icon-ziying.png"
+import ic2 from "../../assets/icon-zhongyou.png"
+import ic3 from "../../assets/icon-waiyou.png"
+import ic4 from "../../assets/icon-fba.png"
 
 export default {
 	data () {
@@ -58,6 +67,34 @@ export default {
 			cmsUrl: "",
 			getProductData: {main: {}, product: {}},  // 默认设置
 			productDetail: {},
+			imgSrc: "",
+			imgIcon: ""
+		}
+	},
+	computed: {
+		img1 () {
+			return i1
+		},
+		img2 () {
+			return i2
+		},
+		img3 () {
+			return i3
+		},
+		img4 () {
+			return i4
+		},
+		icon1 () {
+			return ic1
+		},
+		icon2 () {
+			return ic2
+		},
+		icon3 () {
+			return ic3
+		},
+		icon4 () {
+			return ic4
 		}
 	},
 	created () {
@@ -72,7 +109,7 @@ export default {
 				pageSize: 10,
 				typecode: "productSubtypes"
 			}
-			vm.$vux.loading.show({text: "加载中..."})
+			// vm.$vux.loading.show({text: "加载中..."})
 			const {status, statusText, data} = await products.getPageList(mainsParams)
 			if (status === 200) {
 				vm.cmsUrl = data.cmsUrl
@@ -82,11 +119,13 @@ export default {
 					vm.getProducts(data.maList[i].id)  // 请求四种类型的products
 				}
 				vm.getProductData.main = vm.mains[0]
+				vm.imgSrc = vm.img1 // 默认图片
+				vm.imgIcon = vm.icon1
 				// console.log(vm.getProductData)
 			} else {
 				vm.$vux.toast.text(statusText, "top")
 			}
-			vm.$vux.loading.hide()
+			// vm.$vux.loading.hide()
 		},
 		async getProducts (mainsId) {
 			const vm = this
@@ -105,12 +144,29 @@ export default {
 			} else {
 				vm.$vux.toast.text(statusText, "top")
 			}
-
 			vm.$vux.loading.hide()
-			console.log(vm.productsData)
+			// console.log(vm.productsData)
 		},
 		onItemClick (index) {
 			this.products = this.productsData[this.mains[index].id]
+			this.imgSrc = this.getImgSrc(index)
+			this.imgIcon = this.getImgIcon(index)
+		},
+		getImgSrc (i) {
+			return {
+				0: this.img1,
+				1: this.img2,
+				2: this.img3,
+				3: this.img4
+			}[i || 0]
+		},
+		getImgIcon (i) {
+			return {
+				0: this.icon1,
+				1: this.icon2,
+				2: this.icon3,
+				3: this.icon4
+			}[i || 0]
 		},
 		handleProductDetial (item) {
 			console.log(item)

@@ -1,6 +1,7 @@
 <template>
 	<div class="price-comparison">
-		<div class="page" style="padding-bottom: 55px;">
+		<div class="page price-box" style="padding-bottom: 55px;">
+			<!--<img src="../../assets/fw-3.png" alt="pic" class="price-box-top-img"/>-->
 			<Group title="价格比较" class="text-left">
 				<cell v-if="!getCityData.city.id" @click.native="handleShowStartAddress" title="发出地" is-link class="text-left"></cell>
 				<cell v-if="getCityData.city.id" @click.native="handleShowStartAddress" :value="`${getCityData.area.name}-${getCityData.city.name}`" title="发出地" is-link class="text-left"></cell>
@@ -169,6 +170,7 @@
 				</card>
 			</div>
 		</Popup>
+		<div style="clear:both;"></div>
 	</div>
 </template>
 
@@ -389,6 +391,10 @@ export default {
 
 <style scoped lang="stylus">
 .price-comparison
+	.price-box
+		background #fff url(../../assets/query-bg.jpg) no-repeat
+		background-size 100%
+		background-position center
 	.popup1
 		width 100%
 		height 100%
