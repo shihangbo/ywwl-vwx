@@ -60,9 +60,9 @@ export default {
 		return {
 			name: "products",
 			isShowProductDetail: false,
-			content: "<p class='pp1'><strong>产品中文名</strong><br/></p><p class='pp3'><span class='ps2'><strong>&nbsp; &nbsp; &nbsp;&nbsp;</strong>燕文航空经济小包</span><span class='ps3'>-</span><span class='ps2'>普货</span></p><p class='pp3'><span class='ps4'><strong>产品英文名</strong></span></p><p class='pp5'><span class='ps2'>&nbsp; &nbsp; &nbsp; YW AIR ECONOMY MAIL-GENERAL CARGO</span></p><p class='pp3'><span class='ps4'><strong>产品描述</strong></span></p><p class='pp4'><span class='ps2'>&nbsp; &nbsp; &nbsp; 中低端平邮类普货产品，时效一般，价格实惠。主要使用大邮政供应商</span><span class='ps3'> </span><span class='ps2'>，例如荷邮</span><span class='ps3'>/</span><span class='ps2'>中邮</span><span class='ps3'>/</span><span class='ps2'>土邮</span><span class='ps3'>/</span><span class='ps2'>马邮等等。</span></p><p class='pp3'><span class='ps4'><strong>通达国家范围</strong></span></p><p class='pp4'><span class='ps2'>&nbsp; &nbsp; &nbsp; 英国、澳洲、加拿大、法国、美国、德国等重点</span><span class='ps3'>40</span><span class='ps2'>国</span></p><p class='pp3'><span class='ps4'><strong>重量范围</strong></span></p><p class='pp5'><span class='ps5'>&nbsp; &nbsp; &nbsp; 不超过</span><span class='ps2'>2kg</span></p><p class='pp3'><span class='ps4'><strong>参考时效</strong></span></p><p class='pp6'><span class='ps2'>&nbsp; &nbsp; &nbsp; 15-35</span><span class='ps5'>天</span></p><p class='pp2'><span style='font-size: 20px;'></span></p><hr/><p class='pp3'><span class='ps4'></span></p><p class='pp3'><span class='ps4'><strong>产品中文名</strong></span></p><p class='pp4'><span class='ps2'>&nbsp; &nbsp; &nbsp; 燕文航空经济小包</span><span class='ps3'>-</span><span class='ps2'>特货</span></p><p class='pp3'><span class='ps4'><strong>产品英文名</strong></span></p><p class='pp5'><span class='ps2'>&nbsp; &nbsp; &nbsp; YW AIR ECONOMY MAIL-SPECILA CARGO</span></p><p class='pp3'><span class='ps4'><strong>产品描述</strong></span></p><p class='pp4'><span class='ps2'>&nbsp; &nbsp; &nbsp; 中低端平邮类含电产品，时效一般，价格实惠。主要使用小邮政供应商</span><span class='ps3'> </span><span class='ps2'>，例如瓦努阿图</span><span class='ps3'>/</span><span class='ps2'>所罗门。</span></p><p class='pp3'><span class='ps4'><strong>通达国家范围</strong></span></p><p class='pp4'><span class='ps2'>&nbsp; &nbsp; &nbsp; 加拿大、法国、比利时、意大利等大致</span><span class='ps3'>20</span><span class='ps2'>国</span></p><p class='pp3'><span class='ps4'><strong>重量范围</strong></span></p><p class='pp5'><span class='ps5'>&nbsp; &nbsp; &nbsp; 不超过</span><span class='ps2'>2kg</span></p><p class='pp3'><span class='ps4'><strong>参考时效</strong></span></p><p class='pp6'><span class='ps2'>&nbsp; &nbsp; &nbsp; 20-45</span><span class='ps5'>天</span></p><p><br/></p>",
+			content: "",
 			mains: [],
-			products: [{name: "燕文航空经济小包"}, {name: "燕文航空经济小包"}],
+			products: [],
 			productsData: {},
 			cmsUrl: "",
 			getProductData: {main: {}, product: {}},  // 默认设置
@@ -154,22 +154,22 @@ export default {
 		},
 		getImgSrc (i) {
 			return {
-				0: this.img1,
-				1: this.img2,
-				2: this.img3,
-				3: this.img4
+				0: i1,
+				1: i2,
+				2: i3,
+				3: i4
 			}[i || 0]
 		},
 		getImgIcon (i) {
 			return {
-				0: this.icon1,
-				1: this.icon2,
-				2: this.icon3,
-				3: this.icon4
+				0: ic1,
+				1: ic2,
+				2: ic3,
+				3: ic4
 			}[i || 0]
 		},
 		handleProductDetial (item) {
-			console.log(item)
+			// console.log(item)
 			// 处理 content
 			item.content = item.content.replace(/"p1"|"p2"|"p3"|"p4"|"p5"|"p6"|"p7"|"p8"|"p9"/g, "pp")
 			this.productDetail = item

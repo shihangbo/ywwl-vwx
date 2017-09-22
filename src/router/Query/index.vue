@@ -1,6 +1,6 @@
 <template>
-	<div class="query">
-		<div class="bg-white p10">
+	<div class="query page">
+		<div class="p10 mt80">
 			<div class="p10 mt10 tracking-box">
 				<p class="tracking-title text-center">运单号查询</p>
 				<p class="tracking"><input v-model="number" placeholder="请输入物流单号"></input></p>
@@ -41,9 +41,13 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.query
+	background-color beige
+	.mt80
+		margin-top 6rem
 .tracking-box
 	border-radius 10px
-	background #ddd url(../../assets/default.png) no-repeat
+	background bisque url(../../assets/default.png) no-repeat
 	background-size 100%
 	box-shadow 0 0 5px #000
 	.tracking-title

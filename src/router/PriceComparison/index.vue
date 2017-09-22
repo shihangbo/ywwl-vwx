@@ -7,7 +7,7 @@
 				<cell v-if="getCityData.city.id" @click.native="handleShowStartAddress" :value="`${getCityData.area.name}-${getCityData.city.name}`" title="发出地" is-link class="text-left"></cell>
 				<cell v-if="!getCityData.destin.id" @click.native="handleShowDestinAddress" title="目的地" is-link class="text-left"></cell>
 				<cell v-if="getCityData.destin.id" @click.native="handleShowDestinAddress" :value="getCityData.destin.chinesename" title="目的地" is-link class="text-left"></cell>
-				<x-input v-model="getCityData.weight" class="text-left" text-align="right" title="重量(kg)" placeholder="输入重量" novalidate :show-clear="false" placeholder-align="right"></x-input>
+				<x-input v-model="getCityData.weight" class="text-left" text-align="right" title="重量(g)" placeholder="输入重量" novalidate :show-clear="false" placeholder-align="right"></x-input>
 			</Group>
 			<Group gutter="0" style="margin-top:-1px;" v-if="isShowMoreChoose">
 				<div class="p10">
@@ -109,7 +109,7 @@
 		<!--具体价格显示-->
 		<Popup v-model="isShowPriceDetail" position="right" width="100%" :hide-on-blur="false">
 			<div class="popup3">
-				<card style="margin-top:0;margin-bottom:50px;padding:10px;">
+				<card style="margin-top:0;padding-bottom:50px;padding:10px;">
 					<div class="detail relative bth" slot="content">
 						<h3 class="pt20 pb30" @click="isShowPriceDetail = !isShowPriceDetail">{{priceDetail.productName}}详情介绍</h3>
 						<p class="clearfix text-left relative bbh">
@@ -283,7 +283,7 @@ export default {
 			this.getCityData.city = city
 		},
 		handleAreaCode () {
-			console.log(this.getCityData)
+			// console.log(this.getCityData)
 			this.isShowStartAddress = false
 			this.isShowPriceButton = true
 		},
@@ -309,19 +309,19 @@ export default {
 		},
 		handleChooseDestin (item) {
 			this.getCityData.destin = item
-			console.log(this.getCityData)
+			// console.log(this.getCityData)
 		},
 		handleDestinCode () {
 			this.isShowDestinAddress = false
 		},
 		handleShowPriceDetail (item) {
-			console.log(item)
+			// console.log(item)
 			this.priceDetail = item
 			this.isShowPriceDetail = true
 		},
 		// 价格查询
 		async handleQueryPrice () {
-			console.log(this.getCityData)
+			// console.log(this.getCityData)
 			const vm = this
 			if (!vm.getCityData.city.id) return vm.$vux.toast.text("请选择出发地", "top")
 			if (!vm.getCityData.destin.id) return vm.$vux.toast.text("请选择目的地", "top")
@@ -349,7 +349,7 @@ export default {
 			else return false
 		},
 		async handleDiscount () {
-			console.log(this.discount)
+			// console.log(this.discount)
 			const vm = this
 			const params = {
 				"productCode": vm.priceDetail.productCode,
