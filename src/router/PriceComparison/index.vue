@@ -200,9 +200,9 @@ export default {
 			priceList: [],
 			// 更多筛选条件
 			isShowMoreChoose: false,
-			electricTypesData: [{name: "电商快递", id: 1}, {name: "商业快递", id: 2}, {name: "中国邮政", id: 3}, {name: "外国邮政", id: 4}],
+			electricTypesData: [{name: "不含电", id: 1}, {name: "内置电池", id: 2}, {name: "配套电池", id: 3}, {name: "纯电池", id: 4}],
 			electricTypes: [],
-			productTypesData: [{name: "不含电", id: 10}, {name: "内置电池", id: 11}, {name: "配套电池", id: 12}, {name: "纯电池", id: 13}],
+			productTypesData: [{name: "电商快递", id: 10}, {name: "商业快递", id: 11}, {name: "中国邮政", id: 12}, {name: "外国邮政", id: 13}],
 			productTypes: [],
 			priceDetail: {},
 			discount: 100
@@ -432,6 +432,7 @@ export default {
 		border 1px solid #ccc
 		background-color #fff
 		margin-right 6px
+		font-size .7rem
 	.demo5-item-selected
 		background #ffffff url(../../assets/jiaobiao-r.png) no-repeat right bottom
 		border-color #ff4a00
