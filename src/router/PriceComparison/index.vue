@@ -51,7 +51,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr @click="handleShowPriceDetail(item)" v-for="(item, index) in priceList" :keys="index">
+						<tr @click="handleShowPriceDetail(item)" v-for="(item, index) in priceList" :key="index">
 							<td class="w40 cut" style="text-align: left;padding-left: 5px;"><i class="iconfont eye">&#xe610;</i>{{item.productName.length >= 10 ? `${item.productName.slice(0, 10)}...` : item.productName}}</td>
 							<td class="w30 cut">{{item.limitTime}}</td>
 							<td class="w30 cut">{{item.chargePrice}}</td>
@@ -67,7 +67,7 @@
 				<tab>
 					<tab-item
 						v-for="(item, index) in area"
-						:keys="index"
+						:key="index"
 						@on-item-click="onItemClick"
 						:class="{'tab-item': getTabItemClass(item.areaCode)}"
 						class="relative" :selected="item.areaCode === getCityData.area.areaCode"
@@ -76,7 +76,7 @@
 					</tab-item>
 				</tab>
 				<ul class="p10 bg-white text-left">
-					<li v-for="(item, index) in city" :keys="index" class="inline city-item" :class="{city: item.id === getCityData.city.id}" @click="handleChooseCity(item)">{{item.name}}</li>
+					<li v-for="(item, index) in city" :key="index" class="inline city-item" :class="{city: item.id === getCityData.city.id}" @click="handleChooseCity(item)">{{item.name}}</li>
 				</ul>
 				<p class="mt30" style="padding:0 10%;">
 					<x-button v-if="getCityData.city.id" type="primary" @click.native="handleAreaCode">确定</x-button>
@@ -97,7 +97,7 @@
 						></search>
 				</div>
 				<ul class="p10 bg-white text-left" v-if="filterDestinData.length > 0">
-					<li v-for="(item, index) in filterDestinData" :keys="index" class="inline city-item" :class="{city: item.id === getCityData.destin.id}" @click="handleChooseDestin(item)">{{item.chinesename}}</li>
+					<li v-for="(item, index) in filterDestinData" :key="index" class="inline city-item" :class="{city: item.id === getCityData.destin.id}" @click="handleChooseDestin(item)">{{item.chinesename}}</li>
 				</ul>
 				<p v-if="!filterDestinData.length" class="p10 bg-white text-center fs14 color-warning">暂无目的地信息～</p>
 				<p class="mt30" style="padding:0 10%;">

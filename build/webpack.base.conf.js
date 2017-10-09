@@ -8,7 +8,7 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const originalConfig = {
+module.exports = vuxLoader.merge({
   entry: {
     app: './src/main.js'
   },
@@ -73,12 +73,7 @@ const originalConfig = {
       }
     ]
   }
-}
-
-const webpackConfig = originalConfig // 原来的 module.exports 代码赋值给变量 webpackConfig
-module.exports = vuxLoader.merge(webpackConfig, {
-  options: { showVuxVersionInfo: false },
-  plugins: [{
-    name: 'vux-ui'
-  }]
+}, {
+	options: { showVuxVersionInfo: false },
+	plugins: [{ name: 'vux-ui' }]
 })

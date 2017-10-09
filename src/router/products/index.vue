@@ -4,7 +4,7 @@
 			<tab :line-width="2" custom-bar-width="60px">
 				<tab-item
 					v-for="item in mains"
-					:keys="item.id"
+					:key="item.id"
 					:selected="getProductData.main.id === item.id"
 					@on-item-click="onItemClick"
 					>
@@ -23,7 +23,7 @@
 			</group>
 			<!--产品列表-->
 			<group gutter="-1px" class="text-left" v-if="(products || []).length">
-				<cell v-for="item in products" :keys="item.id" is-link :title="item.title" @click.native="handleProductDetial(item)">
+				<cell v-for="item in products" :key="item.id" is-link :title="item.title" @click.native="handleProductDetial(item)">
 					<img slot="icon" width="20" style="display:block;margin-right:5px;" :src="imgIcon">
 				</cell>
 			</group>
