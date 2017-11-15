@@ -11,7 +11,7 @@
 			</Group>
 			<Group gutter="0" style="margin-top:-1px;" v-if="isShowMoreChoose">
 				<div class="p10">
-					<p class="text-left pl10" style="margin-bottom:5px;">产品类型</p>
+					<p class="text-left pl10 fs14" style="margin-bottom:5px;">产品类型</p>
 					<Checker
 						v-model="productTypes"
 						type="checkbox"
@@ -22,19 +22,29 @@
 					</Checker>
 				</div>
 				<div class="p10" style="padding-top:0;">
-					<p class="text-left pl10" style="margin-bottom:5px;">带电类型</p>
+					<p class="text-left pl10 fs14" style="margin-bottom:5px;">货品一级属性<span class="fs12 color-danger">(请先选一级属性，再选二级属性查询)</span></p>
 					<Checker
-						v-model="electricTypes"
+						v-model="level1Catalog"
+						default-item-class="demo5-item"
+						selected-item-class="demo5-item-selected"
+						style="text-align:left;margin-left:5px;"
+					>
+						<checker-item v-for="item in level1CatalogsData" :key="item.id" :value="item.id">{{item.name}}</checker-item>
+					</Checker>
+					<p class="text-left pl10 fs14" style="margin-bottom:5px;">货品二级属性</p>
+					<Checker
+						v-model="level2Catalogs"
 						type="checkbox"
 						default-item-class="demo5-item"
 						selected-item-class="demo5-item-selected"
+						style="text-align:left;margin-left:5px;"
 						>
-						<checker-item v-for="item in electricTypesData" :key="item.id" :value="item.id">{{item.name}}</checker-item>
+						<checker-item v-for="item in level2CatalogsData" :key="item.id" style="margin-bottom:3px;" :value="item.id">{{item.name}}</checker-item>
 					</Checker>
 				</div>
 			</Group>
 			<p class="mt10 text-right pr10">
-				<x-button mini plain type="primary" @click.native="isShowMoreChoose = !isShowMoreChoose">更多条件</x-button>
+				<x-button mini plain type="primary" style="background-color: #fff;" @click.native="isShowMoreChoose = !isShowMoreChoose">更多条件</x-button>
 			</p>
 			<p class="mt30 mb30" style="padding:0 10%;">
 				<x-button v-if="isShowPriceButton" plain type="warn" @click.native="handleQueryPrice">查询</x-button>
@@ -46,19 +56,19 @@
 					<thead class="bg-lightgrey">
 						<tr>
 							<th>产品名称</th>
-							<th>时效(工作日)</th>
+							<th>产品类型</th>
 							<th>资费(元)</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr @click="handleShowPriceDetail(item)" v-for="(item, index) in priceList" :key="index">
 							<td class="w40 cut" style="text-align: left;padding-left: 5px;"><i class="iconfont eye">&#xe610;</i>{{item.productName.length >= 10 ? `${item.productName.slice(0, 10)}...` : item.productName}}</td>
-							<td class="w30 cut">{{item.limitTime}}</td>
+							<td class="w30 cut">{{item.productTypeName}}</td>
 							<td class="w30 cut">{{item.chargePrice}}</td>
 						</tr>
 					</tbody>
 				</x-table>
-				<load-more style="margin-top: 20px;margin-bottom: 0px;" tip="我也是有底线的哦～" :show-loading="false" background-color="#fbf9fe"></load-more>
+				<load-more tip="我也是有底线的哦～" :show-loading="false" background-color="#fbf9fe"></load-more>
 			</div>
 		</div>
 		<!--出发地选择-->
@@ -200,9 +210,18 @@ export default {
 			priceList: [],
 			// 更多筛选条件
 			isShowMoreChoose: false,
-			electricTypesData: [{name: "不含电", id: 1}, {name: "内置电池", id: 2}, {name: "配套电池", id: 3}, {name: "纯电池", id: 4}],
-			electricTypes: [],
-			productTypesData: [{name: "电商快递", id: 10}, {name: "商业快递", id: 11}, {name: "中国邮政", id: 12}, {name: "外国邮政", id: 13}],
+			level1CatalogsData: [{name: "普货", id: 1}, {name: "特货", id: 2}],
+			level1Catalog: null,
+			level2CatalogsData: [],
+			level2Catalogs: [],
+			normalCatalogsData: [{name: "普通货物", id: 101}],
+			limitedCatalogsData: [{name: "纯电池", id: 1},
+														{name: "内置电池", id: 2},
+														{name: "外置电池.", id: 3},
+														{name: "微磁产品.", id: 4},
+														{name: "固体化妆.", id: 5},
+														{name: "非管制刀.", id: 6}],
+			productTypesData: [{name: "挂号小包", id: 1}, {name: "平邮小包", id: 2}, {name: "E邮宝", id: 3}, {name: "FBA", id: 4}, {name: "专线快递", id: 5}],
 			productTypes: [],
 			priceDetail: {},
 			discount: 100
@@ -330,7 +349,7 @@ export default {
 			const params = {
 				"areaCode": vm.getCityData.area.areaCode,
 				"productTypes": vm.productTypes.length > 0 ? vm.productTypes.join(",") : "N",
-				"electricTypes": vm.electricTypes.length > 0 ? vm.electricTypes.join(",") : "N",
+				"level2Catalog": vm.level2Catalogs.length > 0 ? vm.level2Catalogs.join(",") : "N",
 				"countryId": vm.getCityData.destin.id,
 				"destination": vm.getCityData.destin.searchStr,
 				"weight": vm.getCityData.weight
@@ -369,6 +388,17 @@ export default {
 			this.isShowPriceDetail = false
 			this.discount = 100 // 重置折扣
 			this.priceDetail = {} // 清空数据
+		}
+	},
+	watch: {
+		level1Catalog (nVal) {
+			if (nVal === 1) {
+				this.level2CatalogsData = this.normalCatalogsData
+			}
+			if (nVal === 2) {
+				this.level2CatalogsData = this.limitedCatalogsData
+			}
+			this.level2Catalogs = []
 		}
 	},
 	components: {
@@ -423,7 +453,7 @@ export default {
 		vertical-align bottom
 		padding-right 3px
 		color red
-	.demo5-item
+	.demo4-item
 		width 22%
 		height 26px
 		line-height 26px
@@ -432,6 +462,20 @@ export default {
 		border 1px solid #ccc
 		background-color #fff
 		margin-right 6px
+		font-size .7rem
+	.demo4-item-selected
+		background #ffffff url(../../assets/jiaobiao-r.png) no-repeat right bottom
+		border-color #ff4a00
+		background-size 18px 18px
+	.demo5-item
+		width 18%
+		height 22px
+		line-height 22px
+		text-align center
+		border-radius 3px
+		border 1px solid #ccc
+		background-color #fff
+		margin-right 3px
 		font-size .7rem
 	.demo5-item-selected
 		background #ffffff url(../../assets/jiaobiao-r.png) no-repeat right bottom

@@ -3,15 +3,15 @@
 		<!-- <img src="./assets/logo.png"> -->
 		<router-view></router-view>
 		<tabbar>
-			<tabbar-item link="/query">
+			<tabbar-item link="/query" @click.native="barItem = 1" :show-dot="barItem === 1">
 				<i slot="icon" class="iconfont lh1">&#xe62d;</i>
 				<span slot="label">快件追踪</span>
 			</tabbar-item>
-			<tabbar-item show-dot link="/priceComparison">
+			<tabbar-item @click.native="barItem = 2" :show-dot="barItem === 2" link="/priceComparison">
 				<i slot="icon" class="iconfont lh1">&#xe854;</i>
 				<span slot="label">价格比较</span>
 			</tabbar-item>
-			<tabbar-item link="/products">
+			<tabbar-item @click.native="barItem = 3" :show-dot="barItem === 3" link="/products">
 				<i slot="icon" class="iconfont lh1">&#xe60d;</i>
 				<span slot="label">产品服务</span>
 			</tabbar-item>
@@ -27,6 +27,11 @@
 import { Tabbar, TabbarItem } from "vux"
 export default {
 	name: "app",
+	data () {
+		return {
+			barItem: 0
+		}
+	},
 	components: {
 		Tabbar,
 		TabbarItem
