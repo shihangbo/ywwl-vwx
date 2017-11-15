@@ -2,7 +2,7 @@
 	<div id="app">
 		<!-- <img src="./assets/logo.png"> -->
 		<router-view></router-view>
-		<tabbar>
+			<tabbar>
 			<tabbar-item link="/query" @click.native="barItem = 1" :show-dot="barItem === 1">
 				<i slot="icon" class="iconfont lh1">&#xe62d;</i>
 				<span slot="label">快件追踪</span>
@@ -15,7 +15,7 @@
 				<i slot="icon" class="iconfont lh1">&#xe60d;</i>
 				<span slot="label">产品服务</span>
 			</tabbar-item>
-			<!--<tabbar-item link="http://www.wise-mate.com/branchYanwen/indexMobile.html">
+		<!--<tabbar-item link="http://www.wise-mate.com/branchYanwen/indexMobile.html">
 				<i slot="icon" class="iconfont lh1">&#xe660;</i>
 				<span slot="label">网点查询</span>
 			</tabbar-item>-->

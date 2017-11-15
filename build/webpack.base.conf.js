@@ -75,5 +75,5 @@ module.exports = vuxLoader.merge({
   }
 }, {
 	options: { showVuxVersionInfo: false },
-	plugins: [{ name: 'vux-ui' }]
+  plugins: [{ name: 'vux-ui' }]
 })
