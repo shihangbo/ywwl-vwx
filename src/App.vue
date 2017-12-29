@@ -15,10 +15,6 @@
 				<i slot="icon" class="iconfont lh1">&#xe60d;</i>
 				<span slot="label">产品服务</span>
 			</tabbar-item>
-		<!--<tabbar-item link="http://www.wise-mate.com/branchYanwen/indexMobile.html">
-				<i slot="icon" class="iconfont lh1">&#xe660;</i>
-				<span slot="label">网点查询</span>
-			</tabbar-item>-->
 		</tabbar>
 	</div>
 </template>
