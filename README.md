@@ -1,6 +1,6 @@
 # ywwl_vwx
 
-> 官网项目微信版
+> WeChat version of the official website
 
 ## Build Setup
 
